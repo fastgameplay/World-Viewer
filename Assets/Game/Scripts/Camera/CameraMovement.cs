@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] SO_ObservationPointEvent _onTargetChange;
+    [SerializeField] SO_Vector2Event _onInputDeltaChage;
     public float rotationSpeed = 2.0f;
     public float minVerticalAngle = -80.0f;
     public float maxVerticalAngle = 80.0f;
@@ -13,7 +15,7 @@ public class CameraMovement : MonoBehaviour
     private bool isTransitioning;
     private float defaultDistance = 15.0f;
     private float currentRotationX = 0.0f;
-
+    private Vector2 rotationDelta;
     [SerializeField] ObservationPoint point;
 
     void Start(){
@@ -22,44 +24,13 @@ public class CameraMovement : MonoBehaviour
     
     void Update()
     {
-       
-        // Check if transitioning; if so, return and don't handle input
         if (isTransitioning)
             return;
-        // // Check for touch input
-        // {
-        //     float rotationX = Input.GetAxis("Mouse Y") * rotationSpeed;
-        //     float rotationY = Input.GetAxis("Mouse X") * rotationSpeed;
 
-        //     // Update the current vertical rotation angle
-        //     currentRotationX = Mathf.Clamp(currentRotationX - rotationX, minVerticalAngle, maxVerticalAngle);
+        currentRotationX = Mathf.Clamp(currentRotationX + rotationDelta.y, minVerticalAngle, maxVerticalAngle);
 
-        //     // Rotate around the target based on the updated vertical rotation angle
-        //     transform.rotation = Quaternion.Euler(currentRotationX, transform.rotation.eulerAngles.y + rotationY, 0);
-        // }
-        // else
-        // {
-            float rotationX;
-            float rotationY;
-                    // {
-        if (Input.GetMouseButton(0)){
-            rotationX = -Input.GetAxis("Mouse Y") * rotationSpeed * 2;
-            rotationY = -Input.GetAxis("Mouse X") * rotationSpeed * 2;
-            Debug.Log(Input.GetAxis("Mouse X") + " : " + Input.GetAxis("Mouse Y") );
-        }
-        else{
-            rotationX = Input.GetAxis("Vertical") * rotationSpeed;
-            rotationY = Input.GetAxis("Horizontal") * rotationSpeed;
-        }
+        transform.rotation = Quaternion.Euler(currentRotationX, transform.rotation.eulerAngles.y - rotationDelta.x, 0);
 
-            // Update the current vertical rotation angle
-            currentRotationX = Mathf.Clamp(currentRotationX + rotationX, minVerticalAngle, maxVerticalAngle);
-
-            // Rotate around the target based on the updated vertical rotation angle
-            transform.rotation = Quaternion.Euler(currentRotationX, transform.rotation.eulerAngles.y - rotationY, 0);
-        // }
-
-        // Calculate the new position maintaining the default distance
         Vector3 newPosition = target.position - transform.forward * defaultDistance;
 
         // Apply the new position
@@ -70,7 +41,6 @@ public class CameraMovement : MonoBehaviour
 
 
     }
-
     // Method to smoothly change the target over time
     public void OnTargetChange(ObservationPoint observationPoint){
         // if(target == newTarget) return;
@@ -79,7 +49,6 @@ public class CameraMovement : MonoBehaviour
         }
         StartCoroutine(SmoothTargetChange(observationPoint.Target, observationPoint.DistanceFromTarget));
     }
-
     // Coroutine to smoothly change the target
     private IEnumerator SmoothTargetChange(Transform newTarget, float distance){
         isTransitioning = true;
@@ -104,10 +73,15 @@ public class CameraMovement : MonoBehaviour
         isTransitioning = false;
         defaultDistance = distance;
     }
+    private void OnInputDeltaChage(Vector2 value) => rotationDelta = value * rotationSpeed;
     private void OnEnable(){
         _onTargetChange.AddListener(OnTargetChange);
+        _onInputDeltaChage.AddListener(OnInputDeltaChage);
     }
+
+
     private void OnDisable(){
         _onTargetChange.RemoveListener(OnTargetChange);
+        _onInputDeltaChage.AddListener(OnInputDeltaChage);
     }
 }
