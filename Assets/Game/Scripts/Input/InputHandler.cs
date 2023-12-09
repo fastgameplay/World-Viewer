@@ -3,11 +3,18 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
-    [SerializeField] private SO_Vector2Event _onMovementDeltaChange; 
+    [SerializeField] private Vector2 _deltaMultiplyer;
+
+    [Space(10)]
+    [Header("Inputs")]
     [SerializeField] private InputActionReference _currentActionMap;
 
+    [Space(10)]
+    [Header("Events")]
+    [SerializeField] private SO_Vector2Event _onMovementDeltaChange; 
+
     private void MovementDeltaPerformed(InputAction.CallbackContext context){
-        _onMovementDeltaChange.Invoke(context.ReadValue<Vector2>());
+        _onMovementDeltaChange.Invoke(context.ReadValue<Vector2>() * _deltaMultiplyer);
     }
     
     private void MovementDeltaCanceled(InputAction.CallbackContext context){

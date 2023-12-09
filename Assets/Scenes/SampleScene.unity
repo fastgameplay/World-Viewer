@@ -219,13 +219,13 @@ MonoBehaviour:
     DistanceFromTarget: 15
     Target: {fileID: 1014129426}
   _observationPoints:
-  - DistanceFromTarget: 12
+  - DistanceFromTarget: 8
     Target: {fileID: 509142053}
-  - DistanceFromTarget: 11
+  - DistanceFromTarget: 8
     Target: {fileID: 1418732231}
-  - DistanceFromTarget: 10
+  - DistanceFromTarget: 8
     Target: {fileID: 1474169093}
-  - DistanceFromTarget: 9
+  - DistanceFromTarget: 8
     Target: {fileID: 528919992}
 --- !u!1 &50547400
 GameObject:
@@ -380,6 +380,53 @@ Transform:
   - {fileID: 1152097459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &449193590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 449193591}
+  - component: {fileID: 449193592}
+  m_Layer: 0
+  m_Name: JoyStick Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &449193591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449193590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1152097459}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &449193592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449193590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a7696774fca6f49a81212cd895a1ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deltaMultiplyer: {x: 1, y: 1}
+  _currentActionMap: {fileID: 7070171173268427614, guid: 60c296aea223d1d4396db4182e413fc6, type: 3}
+  _onMovementDeltaChange: {fileID: 11400000, guid: 0133b958c1528844da95ebd4bdfdc7c1, type: 2}
 --- !u!1 &509142052
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +593,81 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528919991}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &584583702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584583703}
+  - component: {fileID: 584583705}
+  - component: {fileID: 584583704}
+  m_Layer: 5
+  m_Name: TouchPad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &584583703
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584583702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 989511687}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -448, y: 256}
+  m_SizeDelta: {x: 768, y: 448}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &584583704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584583702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5999999, g: 0.5999999, b: 0.5999999, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &584583705
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584583702}
+  m_CullTransparentMesh: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,14 +950,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bd1b38bfe15724c81d27dd51a09d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rotationSpeed: 1
+  _minVerticalAngle: 5
+  _maxVerticalAngle: 85
+  _transitionDuration: 1
   _onTargetChange: {fileID: 11400000, guid: fe386a98dc0b4514e81b658a670c35b9, type: 2}
-  rotationSpeed: 2
-  minVerticalAngle: 5
-  maxVerticalAngle: 85
-  duration: 1
-  point:
-    DistanceFromTarget: 15
-    Target: {fileID: 1014129426}
+  _onInputDeltaChage: {fileID: 11400000, guid: 0133b958c1528844da95ebd4bdfdc7c1, type: 2}
 --- !u!1 &974531711
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,6 +1064,7 @@ RectTransform:
   m_Children:
   - {fileID: 1650204350}
   - {fileID: 1434349463}
+  - {fileID: 584583703}
   m_Father: {fileID: 447732291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1000,8 +1121,8 @@ Canvas:
   m_GameObject: {fileID: 989511686}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1305457937}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1058,7 +1179,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1152097459}
-  - component: {fileID: 1152097460}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -1078,23 +1198,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 449193591}
+  - {fileID: 1560827007}
   m_Father: {fileID: 447732291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1152097460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1152097458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92a7696774fca6f49a81212cd895a1ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onMovementDeltaChange: {fileID: 0}
-  _currentActionMap: {fileID: 7070171173268427614, guid: 60c296aea223d1d4396db4182e413fc6, type: 3}
 --- !u!1 &1305457934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,7 +1381,7 @@ GameObject:
   - component: {fileID: 1434349465}
   - component: {fileID: 1434349464}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Joystick BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1420,6 +1528,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474169092}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1560827006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1560827007}
+  - component: {fileID: 1560827008}
+  m_Layer: 0
+  m_Name: TouchPad Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1560827007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560827006}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1152097459}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1560827008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560827006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ecd4ded7a12204497b000d18ef08f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deltaMultiplyer: {x: 1, y: -1}
+  _uiCamera: {fileID: 1305457937}
+  _touchPad: {fileID: 584583703}
+  _touchPosition: {fileID: 5955319523137201744, guid: 60c296aea223d1d4396db4182e413fc6, type: 3}
+  _touchDelta: {fileID: -8271816987807306907, guid: 60c296aea223d1d4396db4182e413fc6, type: 3}
+  _tapDetection: {fileID: 3237071078473996914, guid: 60c296aea223d1d4396db4182e413fc6, type: 3}
+  _onMovementDeltaChange: {fileID: 11400000, guid: 0133b958c1528844da95ebd4bdfdc7c1, type: 2}
 --- !u!1 &1650204349
 GameObject:
   m_ObjectHideFlags: 0

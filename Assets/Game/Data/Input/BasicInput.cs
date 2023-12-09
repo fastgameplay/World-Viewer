@@ -37,13 +37,31 @@ public partial class @BasicInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""TouchDelta"",
+                    ""name"": ""TouchPosition"",
                     ""type"": ""Value"",
-                    ""id"": ""86b3fbc9-0411-4946-bd86-da9c6d895c0c"",
+                    ""id"": ""721a552e-93ed-4a72-8db7-04e33caf5cfa"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TouchDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""fe1e404c-25c3-49f4-82e9-a907c7f25914"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TapDetection"",
+                    ""type"": ""Button"",
+                    ""id"": ""8c604713-2c60-44f8-88c1-850ef967fac0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -60,12 +78,67 @@ public partial class @BasicInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5936985d-0067-4484-bb1b-3e1e8019bcfd"",
+                    ""id"": ""b1b94688-df8b-46b6-8cc2-fdf4db9a5fc0"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""936ffe88-6054-4000-8fdd-8a67c5a6d08f"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8dd0c934-c449-4bf8-a86e-6edafa8da875"",
                     ""path"": ""<Touchscreen>/primaryTouch/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TouchDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac931ad3-9eb6-449e-910b-3b62809e84db"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4caff9b-0046-4396-bd65-7826b37a8bb6"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TapDetection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""48998637-79d0-42db-b530-e5787e212e08"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TapDetection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -77,7 +150,9 @@ public partial class @BasicInput: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_JoyStickDelta = m_Player.FindAction("JoyStickDelta", throwIfNotFound: true);
+        m_Player_TouchPosition = m_Player.FindAction("TouchPosition", throwIfNotFound: true);
         m_Player_TouchDelta = m_Player.FindAction("TouchDelta", throwIfNotFound: true);
+        m_Player_TapDetection = m_Player.FindAction("TapDetection", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -140,13 +215,17 @@ public partial class @BasicInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_JoyStickDelta;
+    private readonly InputAction m_Player_TouchPosition;
     private readonly InputAction m_Player_TouchDelta;
+    private readonly InputAction m_Player_TapDetection;
     public struct PlayerActions
     {
         private @BasicInput m_Wrapper;
         public PlayerActions(@BasicInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @JoyStickDelta => m_Wrapper.m_Player_JoyStickDelta;
+        public InputAction @TouchPosition => m_Wrapper.m_Player_TouchPosition;
         public InputAction @TouchDelta => m_Wrapper.m_Player_TouchDelta;
+        public InputAction @TapDetection => m_Wrapper.m_Player_TapDetection;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -159,9 +238,15 @@ public partial class @BasicInput: IInputActionCollection2, IDisposable
             @JoyStickDelta.started += instance.OnJoyStickDelta;
             @JoyStickDelta.performed += instance.OnJoyStickDelta;
             @JoyStickDelta.canceled += instance.OnJoyStickDelta;
+            @TouchPosition.started += instance.OnTouchPosition;
+            @TouchPosition.performed += instance.OnTouchPosition;
+            @TouchPosition.canceled += instance.OnTouchPosition;
             @TouchDelta.started += instance.OnTouchDelta;
             @TouchDelta.performed += instance.OnTouchDelta;
             @TouchDelta.canceled += instance.OnTouchDelta;
+            @TapDetection.started += instance.OnTapDetection;
+            @TapDetection.performed += instance.OnTapDetection;
+            @TapDetection.canceled += instance.OnTapDetection;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -169,9 +254,15 @@ public partial class @BasicInput: IInputActionCollection2, IDisposable
             @JoyStickDelta.started -= instance.OnJoyStickDelta;
             @JoyStickDelta.performed -= instance.OnJoyStickDelta;
             @JoyStickDelta.canceled -= instance.OnJoyStickDelta;
+            @TouchPosition.started -= instance.OnTouchPosition;
+            @TouchPosition.performed -= instance.OnTouchPosition;
+            @TouchPosition.canceled -= instance.OnTouchPosition;
             @TouchDelta.started -= instance.OnTouchDelta;
             @TouchDelta.performed -= instance.OnTouchDelta;
             @TouchDelta.canceled -= instance.OnTouchDelta;
+            @TapDetection.started -= instance.OnTapDetection;
+            @TapDetection.performed -= instance.OnTapDetection;
+            @TapDetection.canceled -= instance.OnTapDetection;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -192,6 +283,8 @@ public partial class @BasicInput: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnJoyStickDelta(InputAction.CallbackContext context);
+        void OnTouchPosition(InputAction.CallbackContext context);
         void OnTouchDelta(InputAction.CallbackContext context);
+        void OnTapDetection(InputAction.CallbackContext context);
     }
 }

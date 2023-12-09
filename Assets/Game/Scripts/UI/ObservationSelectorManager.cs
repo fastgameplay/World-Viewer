@@ -5,31 +5,37 @@ using UnityEngine;
 
 public class ObservationSelectorManager : MonoBehaviour
 {
-    [SerializeField] ObservationSelectorButton _buttonPrefab;
-    [SerializeField] SO_ObservationPointEvent _onObservationPointChange;
+    [Header("Events")]
+    [SerializeField] private SO_ObservationPointEvent _onObservationPointChange;
+    [Space(10)]
+    [Header("References")]
+    [SerializeField] private ObservationSelectorButton _buttonPrefab;
 
-    [SerializeField] ObservationPoint _defaultPoint; 
-    [SerializeField] ObservationPoint[] _observationPoints;
-    ObservationSelectorButton[] _buttons;
+    [Space(10)]
+    [Header("Points")]
+    [SerializeField] private ObservationPoint _defaultPoint; 
+    [SerializeField] private ObservationPoint[] _observationPoints;
+    private ObservationSelectorButton[] _buttons;
 
-    int _activePoint;
-    void Start(){
+    private int _activePoint;
+    private void Start(){
         _buttons = new ObservationSelectorButton[_observationPoints.Length];
         for (int i = 0; i < _observationPoints.Length; i++){
             _buttons[i] = Instantiate(_buttonPrefab,transform);
-            _buttons[i].name = $"Здание {i+1}";
+            _buttons[i].name = $"Building {i+1} Button";
+            _buttons[i].Text = $"Здание {i+1}";
             _buttons[i].ID = i;
             _buttons[i].AddOnClickListener(ChangeActivePoint);
         }
         ChangeActivePoint(-1);
     }
 
-    void ChangeActiveColors(int id, bool isDefaultActive){
+    private void ChangeActiveColors(int id, bool isDefaultActive){
         for (int i = 0; i < _buttons.Length; i++){
             _buttons[i].ActiveColorState = i == id ? !isDefaultActive : isDefaultActive;
         }
     }
-    void ChangeActivePoint(int id){
+    private void ChangeActivePoint(int id){
         if(id == _activePoint){
             _onObservationPointChange.Event.Invoke(_defaultPoint);
             _activePoint = -1;
@@ -40,12 +46,10 @@ public class ObservationSelectorManager : MonoBehaviour
             _onObservationPointChange.Event.Invoke(_observationPoints[id]);
             _activePoint = id;
             ChangeActiveColors(id, false);
-
             return;
         }
         _onObservationPointChange.Event.Invoke(_defaultPoint);
         _activePoint = -1;
         ChangeActiveColors(-1, true);
-        
     }
 }
